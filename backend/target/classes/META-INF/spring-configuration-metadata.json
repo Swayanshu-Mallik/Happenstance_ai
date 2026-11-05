@@ -1,0 +1,25 @@
+{
+  "groups": [],
+  "properties": [
+    {
+      "name": "happenstance.cors.allowed-origin",
+      "type": "java.lang.String",
+      "description": "Allowed frontend origin for cross-origin requests."
+    },
+    {
+      "name": "happenstance.jwt.expiration-ms",
+      "type": "java.lang.Long",
+      "description": "JWT token expiration time in milliseconds.",
+      "defaultValue": 3600000
+    },
+    {
+      "name": "happenstance.jwt.secret",
+      "type": "java.lang.String",
+      "description": "Secret key used to sign JWT tokens."
+    }
+  ],
+  "hints": [],
+  "ignored": {
+    "properties": []
+  }
+}

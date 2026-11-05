@@ -1,0 +1,25 @@
+services:
+  mongodb:
+    image: mongo:8
+    restart: unless-stopped
+    ports: ["27017:27017"]
+    volumes: [happenstance_mongo_data:/data/db]
+    healthcheck:
+      test: ["CMD","mongosh","--quiet","--eval","db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  backend:
+    build: .
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    environment:
+      SERVER_PORT: 8080
+      MONGODB_URI: mongodb://mongodb:27017/happenstance
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in your environment or .env}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-3600000}
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:3000}
+    ports: ["8080:8080"]
+volumes:
+  happenstance_mongo_data:

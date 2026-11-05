@@ -1,0 +1,35 @@
+
+spring:
+  application:
+    name: happenstance-backend
+
+  mongodb:
+    uri: ${MONGODB_URI:mongodb://localhost:27017/happenstance}
+    database: happenstance
+
+server:
+  port: 8080
+
+happenstance:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration-ms: ${JWT_EXPIRATION_MS:3600000}
+  cors:
+    allowed-origin: ${CORS_ALLOWED_ORIGIN:http://localhost:3000}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+  info:
+    env:
+      enabled: false
+
+logging:
+  level:
+    root: INFO
+    '[org.springframework.data.mongodb]': INFO
